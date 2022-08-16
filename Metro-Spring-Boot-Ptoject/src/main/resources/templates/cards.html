@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>View your cards</title>
+</head>
+<body>
+	<h1>Metro System</h1>
+	<hr>
+	<h3 th:text="'Welcome '+${session.userName}"></h3>
+	<br>
+	<h4>Show My cards</h4>
+	<hr>
+	<br>
+	<table border="1">
+	<tr>
+		<th>Card ID</th>
+		<th>Balance</th>
+	</tr>
+	<tr th:each="card : ${cardList}">
+		<td th:text="${card.cardId}"></td>
+		<td th:text="${card.balance}"></td>
+	</tr>
+</table>
+<a href="./dashboard">Go back</a>
+</body>
+</html>

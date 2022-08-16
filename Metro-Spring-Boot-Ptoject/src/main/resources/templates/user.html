@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Metro System Main Menu</title>
+</head>
+<body>
+	<h1>Metro System</h1>
+	<hr>
+	<h3 th:text="'Welcome '+${session.userName}"></h3>
+	<hr>
+	<br>
+	<a href="./showCards">Show My Metro Cards</a> <br>
+	<a href="./issueCard">Issue New Card</a> <br>
+	<a href="./showTransactions">Show All transactions</a> <br>
+	<a href="./recharge">Recharge Card</a> <br>
+	<a href="./swipeinout">Swipe In / Swipe Out</a> <br>
+	<hr>
+	<a href="./logout">Log Out</a>
+</body>
+</html>
