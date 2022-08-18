@@ -23,7 +23,7 @@ public class MetroCardDaoImpl implements MetroCardDao {
 		MetroCard metroCard = null;
 		try {
 			String query = "SELECT * FROM card where cardID=?";
-			jdbcTemplate.queryForObject(query, new MetroCardRowMapper(), cardId);
+			metroCard = jdbcTemplate.queryForObject(query, new MetroCardRowMapper(), cardId);
 		}catch(EmptyResultDataAccessException ex) {
 			return metroCard;
 		}

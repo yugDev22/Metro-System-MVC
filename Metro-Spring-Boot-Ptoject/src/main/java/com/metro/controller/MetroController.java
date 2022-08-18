@@ -1,14 +1,11 @@
 package com.metro.controller;
 
-import java.util.ArrayList;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.metro.bean.MetroCard;
@@ -29,6 +26,7 @@ public class MetroController {
 	
 	@Autowired
 	private MetroCardService metroCardService;
+	
 	
 	@RequestMapping("/")
 	public ModelAndView mainPageController() {
@@ -58,11 +56,11 @@ public class MetroController {
 	@RequestMapping("/afterSignup")
 	public ModelAndView afterSignupController(HttpServletRequest request) {
 		ModelAndView modelAndView = new ModelAndView();
-		String name = (String)request.getAttribute("passengerName");
-		String phone = (String)request.getAttribute("passengerPhone");
-		String age = (String)request.getAttribute("passengerAge");
-		String email = (String)request.getAttribute("passengerEmail");
-		String pwd = (String)request.getAttribute("passengerPassword");
+		String name = (String)request.getParameter("passengerName");
+		String phone = (String)request.getParameter("passengerPhone");
+		String age = (String)request.getParameter("passengerAge");
+		String email = (String)request.getParameter("passengerEmail");
+		String pwd = (String)request.getParameter("passengerPassword");
 		MetroUser user = new MetroUser(email, pwd);
 		Passenger passenger =  new Passenger(passengerService.getPassengerId(), name, phone, email, Integer.parseInt(age));
 		if(metroUserService.registerUser(user, passenger)) {
@@ -71,19 +69,23 @@ public class MetroController {
 			if(issued!=null) {
 				modelAndView.setViewName("signedUp");
 				modelAndView.addObject("message","Metro card issued: ");
-				modelAndView.addObject("cardId",issued.getCardId());
-				modelAndView.addObject("balance",issued.getBalance());
+				modelAndView.addObject("pname",name+" you are signed up successfully !");
+				modelAndView.addObject("cardId","Card id is: "+issued.getCardId());
+				modelAndView.addObject("balance","Card balance is: "+issued.getBalance());
 				return modelAndView;
 			}
 			else {
 				modelAndView.setViewName("signedUp");
+				modelAndView.addObject("pname",name+" you are signed up successfully !");
 				modelAndView.addObject("message","Unable to issue metro card!, Please try to issue card after login.");
+				modelAndView.addObject("cardId","");
+				modelAndView.addObject("balance","");
 				return modelAndView;
 			}
 		}
 		else {
 			modelAndView.setViewName("output");
-			modelAndView.addObject("message","Unable to register!, please try again.");
+			modelAndView.addObject("message","Unable to register! please try again.");
 			return modelAndView;
 		}
 	}
@@ -99,22 +101,7 @@ public class MetroController {
 		
 	}
 	
-	@RequestMapping("/showCards")
-	public ModelAndView showAllCardsController(HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		String userId = (String)session.getAttribute("userId");
-		if(userId==null||userId.isEmpty()) {
-			ModelAndView modelAndView = new ModelAndView();
-			modelAndView.setViewName("output");
-			modelAndView.addObject("message","Invalid session..");
-			return modelAndView;
-		}
-		Passenger passenger = metroUserService.getPassenger(userId);
-		ArrayList<MetroCard> cardList = metroCardService.getAllCards(passenger.getPassengerId());
-		ModelAndView modelAndView = new ModelAndView("cards","cardList",cardList);
-		
-		return modelAndView;
-	}
+	
 	
 	@RequestMapping("/dashboard")
 	public ModelAndView dashboardController(HttpServletRequest request) {
@@ -130,5 +117,7 @@ public class MetroController {
 		modelAndView.addObject("message","invalid session");
 		return modelAndView;
 	}
+	
+
 
 }

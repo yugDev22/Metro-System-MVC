@@ -16,8 +16,13 @@ public class MetroUserDaoImpl implements MetroUserDao {
 	
 	@Override
 	public int addUser(MetroUser metroUser) {
+		int rows=0;
 		String query = "INSERT INTO metrouser VALUES(?,?)";
-		int rows = jdbcTemplate.update(query,metroUser.getUserId(),metroUser.getPassword());
+		try {
+			rows = jdbcTemplate.update(query,metroUser.getUserId(),metroUser.getPassword());
+		}catch(Exception e) {
+			return rows;
+		}
 		return rows;
 	}
 

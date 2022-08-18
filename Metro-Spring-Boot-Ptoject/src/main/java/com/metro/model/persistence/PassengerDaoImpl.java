@@ -33,7 +33,7 @@ public class PassengerDaoImpl implements PassengerDao{
 		int rows = 0;
 		try {
 			String query = "INSERT INTO PASSENGER values(?,?,?,?,?)";
-			rows = jdbcTemplate.update(query,getLastPassenger().getPassengerId(),passenger.getPassengerName(),passenger.getPassengerPhoneNumber(),passenger.getPassengerEmail(),passenger.getAge());
+			rows = jdbcTemplate.update(query,passenger.getPassengerId(),passenger.getPassengerName(),passenger.getPassengerPhoneNumber(),passenger.getPassengerEmail(),passenger.getAge());
 
 		} catch (EmptyResultDataAccessException e) {
 			return rows;

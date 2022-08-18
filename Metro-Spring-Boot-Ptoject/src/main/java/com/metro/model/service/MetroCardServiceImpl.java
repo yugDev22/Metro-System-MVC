@@ -24,7 +24,7 @@ public class MetroCardServiceImpl implements MetroCardService {
 	@Override
 	public MetroCard issueNewMetroCard(MetroCard card) {
 		if(searchMetroCardById(card.getCardId())==null) {
-			if(card.getBalance()>20) {
+			if(card.getBalance()>=20) {
 				card.setCardId(getCardId());
 				if(metroCardDao.issueNewCard(card)>0) {
 					return card;
@@ -46,9 +46,9 @@ public class MetroCardServiceImpl implements MetroCardService {
 	@Override
 	public Integer AddCardBalance(Integer id, Double balance) {
 		MetroCard card = searchMetroCardById(id);
-		if(card!=null) {
-			if(balance>0)
-				return metroCardDao.updateBalance(id,card.getBalance()+balance);
+		if(card!=null && balance>0) {
+			if(metroCardDao.updateBalance(id,card.getBalance()+balance)>0)
+				return 1;
 		}
 		return null;
 

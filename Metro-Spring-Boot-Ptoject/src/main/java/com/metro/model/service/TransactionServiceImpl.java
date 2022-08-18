@@ -1,6 +1,7 @@
 package com.metro.model.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,13 +16,15 @@ public class TransactionServiceImpl implements TransactionService {
 	@Autowired
 	private TransactionDao transactionDao;
 	
-	MetroCardService metroCardService = new MetroCardServiceImpl();
+	@Autowired
+	private MetroCardService metroCardService;
+	
 	@Override
-	public ArrayList<Transaction> getAllTransactionsByCardId(int cardId) {
+	public List<Transaction> getAllTransactionsByCardId(int cardId) {
 		if(metroCardService.searchMetroCardById(cardId)!=null) {
 			return transactionDao.getTransactionsByCardId(cardId);
 		}
-		return null;
+		return new ArrayList<Transaction>();
 	}
 
 	@Override
@@ -64,5 +67,6 @@ public class TransactionServiceImpl implements TransactionService {
 		}
 		else return null;
 	}
+	
 
 }

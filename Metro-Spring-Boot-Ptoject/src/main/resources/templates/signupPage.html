@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="https://thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
 <title>Registration page</title>
@@ -9,12 +9,15 @@
 	<hr>
 	<h3>Register yourself</h3>
 	<hr>
-	<form action="/afterSignup" method="get">
-		Enter your name   :<input type="text" name="passengerName"> <br>
-		Enter your mobile :<input type="text" name="passengerPhone"> <br>
-		Enter your Age   :<input type="text" name="passengerAge"> <br>
-		Enter your email  :<input type="text" name="passengerEmail"> <br>
-		Enter your password:<input type="password" name="passengerPassword"> <br>
+	<form action="/afterSignup" method="post">
+		Enter your name   :<input type="text" name="passengerName" required="required"> <br>
+		Enter your mobile :<input type="text" name="passengerPhone" required="required"> <br>
+		Enter your Age   :<select name="passengerAge">
+    <option th:each="i : ${#numbers.sequence(18, 100)}" th:value="${i}" th:text="${i}">
+    </option>
+</select> <br>
+		Enter your email  :<input type="text" name="passengerEmail" required="required"> <br>
+		Enter your password:<input type="password" name="passengerPassword" required="required"> <br>
 		<input type="submit" value="Sign Up">
 		<input type="reset" value="Reset Form">
 	</form>

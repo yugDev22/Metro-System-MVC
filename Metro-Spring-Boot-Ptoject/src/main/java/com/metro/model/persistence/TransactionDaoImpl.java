@@ -19,16 +19,16 @@ public class TransactionDaoImpl implements TransactionDao {
 	private JdbcTemplate jdbcTemplate;
 
 	@Override
-	public ArrayList<Transaction> getTransactionsByCardId(int cardId) {
+	public List<Transaction> getTransactionsByCardId(int cardId) {
 		List<Transaction> transactionArray = new ArrayList<Transaction>();
 		try {
 			String query = "SELECT * FROM transaction WHERE cardID=?";
 			transactionArray = jdbcTemplate.query(query, new TransactionRowMapper(), cardId);
 		} catch (EmptyResultDataAccessException ex) {
-			return (ArrayList<Transaction>) transactionArray;
+			return transactionArray;
 		}
 
-		return (ArrayList<Transaction>) transactionArray;
+		return transactionArray;
 	}
 
 	@Override
@@ -60,8 +60,12 @@ public class TransactionDaoImpl implements TransactionDao {
 	@Override
 	public Transaction alreadySwipedIn(Integer cardId) {
 		Transaction swipedIn = null;
-		String query = "SELECT * FROM transaction WHERE cardID=? AND destinationStationId=0";
-		swipedIn = jdbcTemplate.queryForObject(query, new TransactionRowMapper(),cardId);
+		try {
+			String query = "SELECT * FROM transaction WHERE cardID=? AND destinationStationId=0";
+			swipedIn = jdbcTemplate.queryForObject(query, new TransactionRowMapper(),cardId);
+		}catch(EmptyResultDataAccessException e) {
+			return swipedIn;
+		}
 		return swipedIn;
 	}
 

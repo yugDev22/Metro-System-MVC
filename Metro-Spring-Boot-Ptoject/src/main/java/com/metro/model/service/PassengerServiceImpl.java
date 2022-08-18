@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 
 import com.metro.bean.Passenger;
 import com.metro.model.persistence.PassengerDao;
-import com.metro.model.persistence.PassengerDaoImpl;
 
 @Service
 public class PassengerServiceImpl implements PassengerService {
@@ -42,7 +41,7 @@ public class PassengerServiceImpl implements PassengerService {
 	public Integer getPassengerId() {
 		Passenger passenger = passengerDao.getLastPassenger();
 		if(passenger!=null) {
-			return passenger.getPassengerId()+1;
+			return (passenger.getPassengerId()+1);
 		}
 		return 2001;
 	}

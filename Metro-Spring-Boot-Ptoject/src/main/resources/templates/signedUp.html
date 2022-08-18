@@ -1,22 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="https://thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
 <title>Signed Up</title>
 </head>
 <body>
-	<h2 th:text="${}+' you are signed up successfully !'"></h2>
-	<br>
+	<h1>Metro System</h1>
+	<h2 th:text="${pname}"></h2>
 	<hr>
-	<br>
-	<h4 th:text="'your metro card id: '+${cardId}"></h4>
-	<br>
-	<h4 th:text="'card balance : '+${balance}"></h4>
-	<br>
+	<h4 th:text="${message}"></h4>
+	<h4 th:text="${cardId}"></h4>
+	<h4 th:text="${balance}"></h4>
 	<hr>
-	<a href="./login">Login</a>
-	<br>
-	<a href="./">Home</a>
+	<a href="./login">Login</a>|<a href="./">Home</a>
 	
 </body>
 </html>
