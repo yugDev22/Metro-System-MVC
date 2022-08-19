@@ -64,7 +64,7 @@ public class MetroController {
 		MetroUser user = new MetroUser(email, pwd);
 		Passenger passenger =  new Passenger(passengerService.getPassengerId(), name, phone, email, Integer.parseInt(age));
 		if(metroUserService.registerUser(user, passenger)) {
-			MetroCard card = new MetroCard(metroCardService.getCardId(), passenger.getPassengerId(), 20.0);
+			MetroCard card = new MetroCard(metroCardService.getCardId(), passenger.getPassengerId(), 100.0);
 			MetroCard issued = metroCardService.issueNewMetroCard(card);
 			if(issued!=null) {
 				modelAndView.setViewName("signedUp");

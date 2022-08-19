@@ -3,6 +3,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Registration page</title>
+<link th:href="@{/styles/main.css}" rel="stylesheet">
 </head>
 <body>
 	<h1>Welcome to Metro System</h1>
@@ -10,18 +11,19 @@
 	<h3>Register yourself</h3>
 	<hr>
 	<form action="/afterSignup" method="post">
-		Enter your name   :<input type="text" name="passengerName" required="required"> <br>
-		Enter your mobile :<input type="text" name="passengerPhone" required="required"> <br>
+		Enter your name   :<input type="text" name="passengerName" required="required"> <br><br>
+		Enter your mobile :<input type="text" name="passengerPhone" required="required"> <br><br>
 		Enter your Age   :<select name="passengerAge">
     <option th:each="i : ${#numbers.sequence(18, 100)}" th:value="${i}" th:text="${i}">
     </option>
-</select> <br>
-		Enter your email  :<input type="text" name="passengerEmail" required="required"> <br>
-		Enter your password:<input type="password" name="passengerPassword" required="required"> <br>
+</select> <br><br>
+		Enter your email  :<input type="text" name="passengerEmail" required="required"> <br><br>
+		Enter your password:<input type="password" name="passengerPassword" required="required"> <br><br>
 		<input type="submit" value="Sign Up">
 		<input type="reset" value="Reset Form">
 	</form>
 	<hr>
+	<br>
 	<a href="./">Home</a>
 </body>
 </html>

@@ -3,6 +3,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>View your transactions</title>
+<link th:href="@{/styles/main.css}" rel="stylesheet">
 </head>
 <body>
 	<h1>Metro System</h1>
@@ -42,6 +43,8 @@
 			<td th:text="${transaction.swipeOutTime}"></td>
 		</tr>
 	</table>
+	<br>
+	<hr>
 	<a href="./dashboard">Go back</a>
 </body>
 </html>

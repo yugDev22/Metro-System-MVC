@@ -128,7 +128,7 @@ public class CardController {
 		String cardId = (String) request.getParameter("cardId1");
 		if (!balance.isBlank()||cardId.isBlank()) {
 			double bal = Double.parseDouble(balance);
-			if (bal >=20) {
+			if (bal >0) {
 				Integer updated = metroCardService.AddCardBalance(Integer.parseInt(cardId), bal);
 				if(updated!=null) {
 					Passenger passenger = metroUserService.getPassenger(userId);
@@ -147,7 +147,7 @@ public class CardController {
 		ArrayList<MetroCard> cardList = metroCardService.getAllCards(passenger.getPassengerId());
 		modelAndView.addObject("cardList", cardList);
 		modelAndView.setViewName("recharge");
-		modelAndView.addObject("message","Invalid card, or balance is less than 20");
+		modelAndView.addObject("message","Invalid card, or entered balance is less than 0");
 		return modelAndView;
 	}
 

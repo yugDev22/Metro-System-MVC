@@ -89,6 +89,14 @@ public class CardSwipeController {
 		String cardId = (String) request.getParameter("cardId");
 		String destinationStationId = request.getParameter("destinationStationId");
 		if(!(cardId==null||cardId.isEmpty()||destinationStationId.isEmpty())) {
+			if(metroCardService.searchMetroCardById(Integer.parseInt(cardId)).getBalance()<20) {
+				List<Station> stationList = stationService.getAllStations();
+				modelAndView.addObject("cardId",cardId);
+				modelAndView.addObject("stationList",stationList);
+				modelAndView.setViewName("swipeout");
+				modelAndView.addObject("message", "Unable to swipe out, balance is less than 20");
+				return modelAndView;
+			}
 			Transaction transaction = transactionService.alreadySwipedIn(Integer.parseInt(cardId));
 			if(transaction!=null) {
 				transaction.setDestinationStationId(Integer.parseInt(destinationStationId));
@@ -104,7 +112,6 @@ public class CardSwipeController {
 
 		List<Station> stationList = stationService.getAllStations();
 		modelAndView.addObject("cardId",cardId);
-		modelAndView.addObject("message", "");
 		modelAndView.addObject("stationList",stationList);
 		modelAndView.setViewName("swipeout");
 		modelAndView.addObject("message", "Unable to swipe out");
@@ -127,6 +134,16 @@ public class CardSwipeController {
 		String cardId = request.getParameter("cardId");
 		String sourceStationId = request.getParameter("sourceStationId");
 		if(!(cardId==null||cardId.isEmpty()||sourceStationId.isEmpty())) {
+			if(metroCardService.searchMetroCardById(Integer.parseInt(cardId)).getBalance()<20) {
+				List<Station> stationList = stationService.getAllStations();
+				modelAndView.addObject("cardId",cardId);
+				modelAndView.addObject("message", "");
+				modelAndView.addObject("stationList",stationList);
+				modelAndView.setViewName("swipein");
+				modelAndView.addObject("message", "Unable to swipe in, balance is less than 20");
+				return modelAndView;
+			}
+			
 			if(transactionService.alreadySwipedIn(Integer.parseInt(cardId))==null) {
 				Transaction transaction = new Transaction("", Integer.parseInt(cardId), Integer.parseInt(sourceStationId), 0, 0.0,LocalDateTime.now(), null);
 				if(transactionService.addNewTransaction(transaction)>0) {
