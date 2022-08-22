@@ -74,7 +74,7 @@ public class CardController {
 		String balance = (String) request.getParameter("bal");
 		if (!balance.isBlank()) {
 			double bal = Double.parseDouble(balance);
-			if (bal >=20) {
+			if (bal >=100) {
 				Passenger passenger = metroUserService.getPassenger(userId);
 				MetroCard metroCard = new MetroCard(metroCardService.getCardId(), passenger.getPassengerId(), bal);
 				if(metroCardService.issueNewMetroCard(metroCard)!=null) {
@@ -88,7 +88,7 @@ public class CardController {
 		}
 
 		modelAndView.setViewName("issuecard");
-		modelAndView.addObject("message", "Unable to issue card, balance is less than 20");
+		modelAndView.addObject("message", "Unable to issue card, balance is less than 100");
 		return modelAndView;
 	}
 	

@@ -52,6 +52,13 @@ public class CardSwipeController {
 		List<Station> stationList = stationService.getAllStations();
 		String cardId = (String) request.getParameter("cardId1");
 		if(!(cardId==null||cardId.isEmpty())) {
+			MetroCard card = metroCardService.searchMetroCardById(Integer.parseInt(cardId));
+			if(card.getBalance()<20) {
+				modelAndView.setViewName("swipe");
+				modelAndView.addObject("stationList",stationList);
+				modelAndView.addObject("message", "Unable to swipe, balance is less than 20, please recharge");
+				return modelAndView;
+			}
 			Transaction transaction = transactionService.alreadySwipedIn(Integer.parseInt(cardId));
 			if(transaction!=null){
 				modelAndView.setViewName("swipeout");
@@ -69,6 +76,7 @@ public class CardSwipeController {
 			}
 		}
 		modelAndView.setViewName("swipe");
+		modelAndView.addObject("stationList",stationList);
 		modelAndView.addObject("message", "Unable to swipe..");
 		return modelAndView;
 	}

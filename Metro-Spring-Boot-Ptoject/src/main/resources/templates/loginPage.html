@@ -11,8 +11,8 @@
 	<h3>Login here</h3>
 	<hr>
 	<form action="./afterLogin" method="post">
-		Enter user-id (email):<input type="text" name="userId" required="required"> <br><br>
-		Enter your password  :<input type="password" name="password" required="required"> <br><br>
+		Enter user-id (email):<input type="text" name="userId" required="required" placeholder="enter your email"> <br><br>
+		Enter your password  :<input type="password" name="password" required="required" placeholder="enter your password"> <br><br>
 		<input type="submit" value="Log in">
 	</form>
 	<h5 style="color:red" th:text="${message}"></h5>
