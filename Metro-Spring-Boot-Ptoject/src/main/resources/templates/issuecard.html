@@ -13,7 +13,7 @@
 	<hr>
 
 	<form action="./issueNow" method="post">
-		Enter balance to add: <input type="text" name="bal"><br>
+		Enter balance to add: <input type="number" name="bal" step="0.01"><br>
 		<input type="submit" value="Issue Card">
 	</form>
 	<h5 style="color:red" th:text="${message}"></h5>
