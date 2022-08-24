@@ -18,7 +18,7 @@
 		Select card :<select th:name="cardId1">
 			<option th:each="card:${cardList}"
 					th:value="${card.cardId}"
-					th:label="'Card ID: '+${card.cardId}+', Balance: '+{card.balance}">
+					th:label="'Card ID: '+${card.cardId}+', Balance: '+${card.balance}">
 			</option>
 			</select>
 			<br>
